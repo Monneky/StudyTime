@@ -1,7 +1,10 @@
 from flet import Page,Text, NavigationBar, NavigationDestination, icons,app, FontWeight, FloatingActionButton
 
 if __name__ == "__main__":
-    def main(page: Page):  
+    def main(page: Page):
+        def open_info(e):
+            page.dialog = "Hello there"
+            
         page.title = "Home"
         page.navigation_bar = NavigationBar(
             destinations= [
@@ -11,7 +14,8 @@ if __name__ == "__main__":
             ]
         )
         page.floating_action_button = FloatingActionButton(
-            icon=icons.HELP
+            icon=icons.HELP,
+            on_click=open_info
         )
         page.add(
             Text("Welcome to the Study Timer", size=50,  weight=FontWeight.W_900),
