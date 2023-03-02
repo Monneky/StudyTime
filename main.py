@@ -1,17 +1,22 @@
-import flet as ft
+from flet import Page,Text, NavigationBar, NavigationDestination, icons,app, FontWeight, FloatingActionButton
 
-def main(page: ft.Page):
-    page.title = "Home"
-    page.navigation_bar = ft.NavigationBar(
-        destinations= [
-            ft.NavigationDestination(icon=ft.icons.PLAY_ARROW, label="Start"),
-            ft.NavigationDestination(icon=ft.icons.PERSON, label="Custom Mode"),
-            ft.NavigationDestination(icon=ft.icons.HISTORY, label="History")
-        ]
-    )
-    page.add(
-        ft.Text("Welcome to the Study Timer", size=50,  weight=ft.FontWeight.W_900),
-        ft.Text("In the below menu you can choose an option, if you have doubts please click in the help icon to see how to use this app, thank you.", size=20)
-    )
+if __name__ == "__main__":
+    def main(page: Page):  
+        page.title = "Home"
+        page.navigation_bar = NavigationBar(
+            destinations= [
+                NavigationDestination(icon=icons.PLAY_ARROW, label="Start"),
+                NavigationDestination(icon=icons.PERSON, label="Custom Mode"),
+                NavigationDestination(icon=icons.HISTORY, label="History")
+            ]
+        )
+        page.floating_action_button = FloatingActionButton(
+            icon=icons.HELP
+        )
+        page.add(
+            Text("Welcome to the Study Timer", size=50,  weight=FontWeight.W_900),
+            Text("In the below menu you can choose an option, if you have doubts please click in the help icon to see how to use this app, thank you.", size=20),
+            Text(f'Route {page.route}')
+        )
 
-ft.app(target=main)
+app(target=main)
