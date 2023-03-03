@@ -19,12 +19,7 @@ if __name__ == "__main__":
             
         def go_history(e):
             page.go('/history')
-
-        def open_dlg(e):
-            page.dialog = dlg
-            dlg.open = True
-            page.update()
-            
+        
         def route_change(e):
             page.views.clear()
             page.views.append(
