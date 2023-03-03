@@ -1,4 +1,4 @@
-from flet import Page, Text, NavigationBar, NavigationDestination, icons,app, FontWeight, FloatingActionButton, AlertDialog, View
+from flet import Page, Text, icons,app, FloatingActionButton, AlertDialog, View, AppBar, colors, ElevatedButton, Icon
 
 if __name__ == "__main__":
     def main(page: Page):
@@ -8,43 +8,112 @@ if __name__ == "__main__":
             title = Text("Hello, you!"), on_dismiss=lambda e: print("Dialog dismissed!")
         )
         
-        def open_play():
-            print('Hey')
-            # page.go("/play")
+        def open_play(e):
+            page.go("/play")
+        
+        def go_main(e):
+            page.go('/')
+        
+        def go_custome(e):
+            page.go('/custome')
+            
+        def go_history(e):
+            page.go('/history')
 
         def open_dlg(e):
             page.dialog = dlg
             dlg.open = True
             page.update()
             
-        def route_change(route):
+        def route_change(e):
             page.views.clear()
             page.views.append(
                 View(
-                    '/',
+                    "/",
                     [
-                        Text("This is main page")
+                        AppBar(
+                            leading=Icon(icons.ACCESS_TIME_FILLED_OUTLINED),
+                            leading_width=50,
+                            title=Text("Study Timer "), 
+                            bgcolor=colors.SURFACE_VARIANT,
+                            center_title=False,
+                            actions= [
+                                ElevatedButton('Home', on_click=go_main),
+                                ElevatedButton('Play', on_click=open_play),
+                                ElevatedButton('Custome', on_click=go_custome),
+                                ElevatedButton('History', on_click=go_history),
+                            ]
+                        ),
                     ],
                 )
-            ),
+            )
             if page.route == "/play":
                 page.views.append(
-                    '/play', 
-                    [
-                        Text("Hello, this is Play section")
-                    ]
-                ),
+                    View(
+                        "/play",
+                        [
+                            AppBar(
+                                leading=Icon(icons.ACCESS_TIME_FILLED_OUTLINED),
+                                leading_width=50,
+                                title=Text("Study Timer "), 
+                                bgcolor=colors.SURFACE_VARIANT,
+                                center_title=False,
+                                actions= [
+                                    ElevatedButton('Home', on_click=go_main),
+                                    ElevatedButton('Play', on_click=open_play),
+                                    ElevatedButton('Custome', on_click=go_custome),
+                                    ElevatedButton('History', on_click=go_history),
+                                ]
+                        ),
+                        ],
+                    )
+                )
+            elif page.route == '/custome': 
+                page.views.append(
+                    View(
+                        '/custome',
+                        [
+                            AppBar(
+                                leading=Icon(icons.ACCESS_TIME_FILLED_OUTLINED),
+                                leading_width=50,
+                                title=Text("Study Timer "), 
+                                bgcolor=colors.SURFACE_VARIANT,
+                                center_title=False,
+                                actions= [
+                                    ElevatedButton('Home', on_click=go_main),
+                                    ElevatedButton('Play', on_click=open_play),
+                                    ElevatedButton('Custome', on_click=go_custome),
+                                    ElevatedButton('History', on_click=go_history),
+                                ]
+                        ),
+                        ]
+                    )
+                )
+            elif page.route == '/history':
+                page.views.append(
+                    View(
+                        '/history',
+                        [
+                            AppBar(
+                                leading=Icon(icons.ACCESS_TIME_FILLED_OUTLINED),
+                                leading_width=50,
+                                title=Text("Study Timer "), 
+                                bgcolor=colors.SURFACE_VARIANT,
+                                center_title=False,
+                                actions= [
+                                    ElevatedButton('Home', on_click=go_main),
+                                    ElevatedButton('Play', on_click=open_play),
+                                    ElevatedButton('Custome', on_click=go_custome),
+                                    ElevatedButton('History', on_click=go_history),
+                                ]
+                        ),
+                        ]
+                    )
+                )
             page.update()
         
-        page.floating_action_button = FloatingActionButton(
-            icon=icons.HELP,
-            on_click=open_dlg
-        )
-        page.add(
-            Text("Welcome to the Study Timer", size=50,  weight=FontWeight.W_900),
-            Text("In the below menu you can choose an option, if you have doubts please click in the help icon to see how to use this app, thank you.", size=20)
-        )
+        page.on_route_change = route_change
         
-        # page.go(route_change)
+        page.go(page.route)
 
 app(target=main)
